@@ -11,19 +11,21 @@
 
 - [【关于 rasa 安装 】那些你不知道的事](#关于-rasa-安装-那些你不知道的事)
   - [目录](#目录)
-  - [安装 Rasa](#安装-rasa)
-    - [Rasa 推荐 安装方式](#rasa-推荐-安装方式)
-    - [sklearn  和 MITIE 库 安装](#sklearn--和-mitie-库-安装)
-  - [项目初尝试](#项目初尝试)
-    - [创建新项目](#创建新项目)
-    - [模型训练](#模型训练)
-    - [测试](#测试)
+  - [一、安装 Rasa](#一安装-rasa)
+  - [二、安装 python 工具包](#二安装-python-工具包)
+  - [三、sklearn  和 MITIE 库 安装](#三sklearn--和-mitie-库-安装)
+  - [四、项目初尝试](#四项目初尝试)
+    - [4.1 创建新项目](#41-创建新项目)
+    - [4.2 模型训练](#42-模型训练)
+    - [4.3 测试](#43-测试)
   - [Rasa 命令行 备忘录](#rasa-命令行-备忘录)
   - [Rasa 架构](#rasa-架构)
+  - [问题记录](#问题记录)
+    - [InvalidPolicyConfig: Module for policy 'KerasPolicy' could not be loaded. Please make sure the name is a valid policy.](#invalidpolicyconfig-module-for-policy-keraspolicy-could-not-be-loaded-please-make-sure-the-name-is-a-valid-policy)
   - [参考资料](#参考资料)
 
 
-## 安装 Rasa 
+## 一、安装 Rasa 
 
 > 温馨提示：由于 安装 Rasa 过程中，会安装各种 乱七八糟的 依赖库（eg：tensorflow 2.0，...），导致 安装失败，所以建议 用 conda ，新建 一个 conda 环境，然后在 该环境上面开发。
 
@@ -36,20 +38,13 @@
   $conda activate rasa
 ```
 
+## 二、安装 python 工具包
 
-### Rasa 推荐 安装方式
-
-```python
-    pip install rasa-x --extra-index-url https://pypi.rasa.com/simple
+```
+  $pip install -r install/rasa2.txt
 ```
 
-> 注：该命令将同时安装 Rasa 和 Rasa X，如果你不想 安装 Rasa X，你可以用以下 命令：
-
-```python
-    pip install Rasa
-```
-
-### sklearn  和 MITIE 库 安装
+## 三、sklearn  和 MITIE 库 安装
 
 ```shell
   pip install -U scikit-learn sklearn-crfsuite
@@ -68,29 +63,7 @@
 
 ```shell
   Compiling src/text_feature_extraction.cpp
-  Compiling ../dlib/dlib/threads/multithreaded_object_extension.cpp
-  Compiling ../dlib/dlib/threads/threaded_object_extension.cpp
-  Compiling ../dlib/dlib/threads/threads_kernel_1.cpp
-  Compiling ../dlib/dlib/threads/threads_kernel_2.cpp
-  Compiling ../dlib/dlib/threads/threads_kernel_shared.cpp
-  Compiling ../dlib/dlib/threads/thread_pool_extension.cpp
-  Compiling ../dlib/dlib/misc_api/misc_api_kernel_1.cpp
-  Compiling ../dlib/dlib/misc_api/misc_api_kernel_2.cpp
-  Linking libmitie.so
-  Making libmitie.a
-  Build Complete
-  make[1]: Leaving directory `/web/workspace/yangkm/python_wp/nlu/DSWp/MITIE/mitielib'
-  running build_py
-  creating build
-  creating build/lib
-  creating build/lib/mitie
-  copying mitielib/__init__.py -> build/lib/mitie
-  copying mitielib/mitie.py -> build/lib/mitie
-  copying mitielib/libmitie.so -> build/lib/mitie
-  running install_lib
-  copying build/lib/mitie/__init__.py -> /home/amy/.conda/envs/yangkm/lib/python3.6/site-packages/mitie
-  copying build/lib/mitie/mitie.py -> /home/amy/.conda/envs/yangkm/lib/python3.6/site-packages/mitie
-  copying build/lib/mitie/libmitie.so -> /home/amy/.conda/envs/yangkm/lib/python3.6/site-packages/mitie
+  ...
   byte-compiling /home/amy/.conda/envs/yangkm/lib/python3.6/site-packages/mitie/__init__.py to __init__.cpython-36.pyc
   byte-compiling /home/amy/.conda/envs/yangkm/lib/python3.6/site-packages/mitie/mitie.py to mitie.cpython-36.pyc
   running install_egg_info
@@ -98,10 +71,9 @@
 ```
 > 注：会存在 一些 warning 警告，对结果 影响不大
 
+## 四、项目初尝试
 
-## 项目初尝试
-
-### 创建新项目
+### 4.1 创建新项目
 
 1. 第一步是创建一个新的Rasa项目。要做到这一点，运行下面的代码:
   
@@ -127,48 +99,7 @@ Finished creating project structure.
 Training an initial model...
 Training Core model...
 Processed Story Blocks: 100%|█████████████████████████████████████████████| 5/5 [00:00<00:00, 3562.34it/s, # trackers=1]
-Processed Story Blocks: 100%|█████████████████████████████████████████████| 5/5 [00:00<00:00, 1523.54it/s, # trackers=5]
-Processed Story Blocks: 100%|█████████████████████████████████████████████| 5/5 [00:00<00:00, 380.28it/s, # trackers=20]
-Processed Story Blocks: 100%|█████████████████████████████████████████████| 5/5 [00:00<00:00, 301.26it/s, # trackers=24]
-Processed trackers: 100%|█████████████████████████████████████████████████| 5/5 [00:00<00:00, 2233.39it/s, # actions=16]
-Processed actions: 16it [00:00, 14986.35it/s, # examples=16]
-Processed trackers: 100%|█████████████████████████████████████████████| 231/231 [00:00<00:00, 899.80it/s, # actions=126]
-Epochs:   0%|                                                                                   | 0/100 [00:00<?, ?it/s]/home/amy/.conda/envs/yangkm/lib/python3.6/site-packages/rasa/utils/tensorflow/model_data.py:386: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
-  final_data[k].append(np.concatenate(np.array(v)))
-Epochs: 100%|████████████████████████████████████| 100/100 [00:06<00:00, 14.77it/s, t_loss=0.083, loss=0.009, acc=1.000]
-2020-09-17 16:46:48 INFO     rasa.utils.tensorflow.models  - Finished training.
-2020-09-17 16:46:48 INFO     rasa.core.agent  - Persisted model to '/tmp/tmpjkpkgun2/core'
-Core model training completed.
-Training NLU model...
-2020-09-17 16:46:48 INFO     rasa.nlu.training_data.training_data  - Training data stats:
-2020-09-17 16:46:48 INFO     rasa.nlu.training_data.training_data  - Number of intent examples: 43 (7 distinct intents)
-2020-09-17 16:46:48 INFO     rasa.nlu.training_data.training_data  -   Found intents: 'mood_unhappy', 'bot_challenge', 'deny', 'affirm', 'greet', 'mood_great', 'goodbye'
-2020-09-17 16:46:48 INFO     rasa.nlu.training_data.training_data  - Number of response examples: 0 (0 distinct responses)
-2020-09-17 16:46:48 INFO     rasa.nlu.training_data.training_data  - Number of entity examples: 0 (0 distinct entities)
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Starting to train component WhitespaceTokenizer
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Finished training component.
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Starting to train component RegexFeaturizer
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Finished training component.
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Starting to train component LexicalSyntacticFeaturizer
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Finished training component.
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Starting to train component CountVectorsFeaturizer
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Finished training component.
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Starting to train component CountVectorsFeaturizer
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Finished training component.
-2020-09-17 16:46:48 INFO     rasa.nlu.model  - Starting to train component DIETClassifier
-/home/amy/.conda/envs/yangkm/lib/python3.6/site-packages/rasa/utils/common.py:363: UserWarning: You specified 'DIET' to train entities, but no entities are present in the training data. Skip training of entities.
-Epochs:   0%|                                                                                   | 0/100 [00:00<?, ?it/s]/home/amy/.conda/envs/yangkm/lib/python3.6/site-packages/rasa/utils/tensorflow/model_data.py:386: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
-  final_data[k].append(np.concatenate(np.array(v)))
-Epochs: 100%|████████████████████████████████| 100/100 [00:05<00:00, 18.36it/s, t_loss=1.475, i_loss=0.095, i_acc=1.000]
-2020-09-17 16:46:58 INFO     rasa.utils.tensorflow.models  - Finished training.
-2020-09-17 16:46:59 INFO     rasa.nlu.model  - Finished training component.
-2020-09-17 16:46:59 INFO     rasa.nlu.model  - Starting to train component EntitySynonymMapper
-2020-09-17 16:46:59 INFO     rasa.nlu.model  - Finished training component.
-2020-09-17 16:46:59 INFO     rasa.nlu.model  - Starting to train component ResponseSelector
-2020-09-17 16:46:59 INFO     rasa.nlu.selectors.response_selector  - Retrieval intent parameter was left to its default value. This response selector will be trained on training examples combining all retrieval intents.
-2020-09-17 16:46:59 INFO     rasa.nlu.model  - Finished training component.
-2020-09-17 16:46:59 INFO     rasa.nlu.model  - Successfully saved model into '/tmp/tmpjkpkgun2/nlu'
-NLU model training completed.
+...
 Your Rasa model is trained and saved at '/web/workspace/yangkm/python_wp/nlu/DSWp/models/20200917-164632.tar.gz'.
 If you want to speak to the assistant, run 'rasa shell' at any time inside the project directory.
 ```
@@ -216,7 +147,7 @@ If you want to speak to the assistant, run 'rasa shell' at any time inside the p
 > 注：最重要的文件用“*”标记。你将在本教程中了解所有这些文件。
 
 
-### 模型训练
+### 4.2 模型训练
 
 每当我们添加新的NLU或Core数据，或更新域或配置时，我们都需要根据示例故事和NLU数据重新训练一个神经网络。为此，运行下面的命令。该命令将调用Rasa Core和NLU训练函数，并将训练后的模型存储到models/目录中。该命令只会在数据或配置发生更改时自动对不同的模型部件进行重新训练。
 
@@ -227,7 +158,7 @@ If you want to speak to the assistant, run 'rasa shell' at any time inside the p
 
 rasa train命令将同时查找NLU和Core数据，并训练一个组合模型。
 
-### 测试
+### 4.3 测试
 
 恭喜你! 🚀 你刚刚建立了一个完全由机器学习驱动的助手。 下一步就是尝试一下!如果你正在本地机器上学习本教程，请运行以下命令与助手对话：
 
@@ -265,6 +196,11 @@ rasa train命令将同时查找NLU和Core数据，并训练一个组合模型。
   Your input ->  are you a bot?                                                                                           
   I am a bot, powered by Rasa.
 ```
+
+
+
+
+
 
 ## Rasa 命令行 备忘录
 
@@ -324,6 +260,51 @@ rasa train命令将同时查找NLU和Core数据，并训练一个组合模型。
   - 4. 选择的操作由跟踪器记录。 
   - 5. 响应被发送给用户。
 
+## 问题记录
+
+### InvalidPolicyConfig: Module for policy 'KerasPolicy' could not be loaded. Please make sure the name is a valid policy.
+
+> 参考：[InvalidPolicyConfig:未能加载策略“”KerasPolicy“”的模块。“”请确保该名称是有效的策略](https://cloud.tencent.com/developer/ask/sof/273619)
+
+- 问题描述
+
+执行 $ rasa train 之后，出现这个错误
+
+```s
+    $ InvalidPolicyConfig: Module for policy 'KerasPolicy' could not be loaded. Please make sure the name is a valid policy.
+```
+
+- 问题定位：Rasa 2.0中弃用了Keras策略，取而代之的是TED策略
+- 解决方法
+
+> 原始 config.yml 去掉 KerasPolicy 
+
+```s
+language: "zh"
+...
+policies:
+  - name: KerasPolicy
+    epochs: 100
+    max_history: 5
+  ...
+```
+
+> 改为
+
+```s
+language: "zh"
+...
+policies:
+  - name: TEDPolicy
+    epochs: 10
+    max_history: 5
+  ...
+```
+
+
+
+
+
 
 ## 参考资料
 
@@ -335,3 +316,4 @@ rasa train命令将同时查找NLU和Core数据，并训练一个组合模型。
 6. [Rasa_NLU_Chi](https://github.com/crownpku/Rasa_NLU_Chi)
 7. [_rasa_chatbot](https://github.com/zqhZY/_rasa_chatbot)
 8. [rasa 源码分析](https://www.zhihu.com/people/martis777/posts)
+9. [Rasa开发使用 Rasa_NLU及Rasa_Core模型训练与测试](https://blog.csdn.net/ling620/article/details/99845885)
